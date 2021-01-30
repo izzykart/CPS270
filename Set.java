@@ -14,32 +14,30 @@ import java.util.List;
 public class Set {	
 	
 	public static final int MAX_SET_ELEMENT_VALUE = 63;
-	ArrayList <Integer> elements;
+	private long set;
 	
 	public Set() {
-		elements = new ArrayList<Integer>;
+		set = 0;
 	}
 	
 	public Set(List<Integer> elements) throws SetElementValueOutOfRange{
-		
-		for (int i = 0; i < elements.size(); i++) {
-			if (elements.get[i] > MAX_SET_ELEMENT_VALUE)
-				throw SetElementValueOutOfRange;
+		set = 0;
+		for(int i = 0; i < elements.size(); i++) {
+			set.addElement(elements.get(i));
 		}
-		this.elements = elements;
 	}
 	
 	public boolean isInSet(int x) {
-		for (int i  = 0; i < elements.size(); i++) {
-			if (x == elements[i])
-				return true;
-		}
-		return false;
+		long mask = 1;
+		mask << x;
+		if (set & mask != 0)
+			return true;
+		else
+			return false
 	}
 	
 	public void empty() {
-		for ( int i = 0; i < elements.size(); i++)
-			elements[i] = null;
+		
 	}
 	
 	/**
@@ -48,21 +46,24 @@ public class Set {
 	 * @throws SetElementValueOutOfRange
 	 */
 	public void addElement(int x) throws SetElementValueOutOfRange {
-		if (x > MAX_SET_ELEMENT_VALUE)
-			throw SetElementValueOutOfRange;
-		else
-			elements.add(x);
-	}
-	
-	public void removeElement(int x) throws SetElementValueOutOfRange {
+		long mask = 1;
 		if (x > MAX_SET_ELEMENT_VALUE)
 			throw SetElementValueOutOfRange;
 		else {
-			for (int i = 0; i < elements.size(); i++) {
-				if (elements[i] == x)
-					elements.remove(i);
-			}
+			mask << x;
+			set = (set | mask);
 		}
+	}
+	
+	public void removeElement(int x) throws SetElementValueOutOfRange {
+		long mask = 1;
+		if (x > MAX_SET_ELEMENT_VALUE)
+			throw SetElementValueOutOfRange;
+		else {
+			mask << x;
+			set = (set & ~mask);
+		}
+	}
 	}
 	
 	public Set intersection(Set s) {
@@ -81,19 +82,27 @@ public class Set {
 	}
 	
 	public boolean isEmpty() {
-
-		return false;
+		if(set = 0)
+			return true;
+		else
+			return false;
 	}
 
 	public int size() {
-
-		return 0;
+		int size = 0;
+		String s = Long.toBinaryString(set);
+		
+		for (int i = 63; i != 1; i--) {
+			if (s.charAt(i) == '1')
+				size++;
+		}
+		
+		return size;
 		
 		
 	}
 
 	public void complement() {
-
-
+		set  = 	~set;
 	}
  }
