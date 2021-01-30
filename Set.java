@@ -55,8 +55,14 @@ public class Set {
 	}
 	
 	public void removeElement(int x) throws SetElementValueOutOfRange {
-
-		
+		if (x > MAX_SET_ELEMENT_VALUE)
+			throw SetElementValueOutOfRange;
+		else {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements[i] == x)
+					elements.remove(i);
+			}
+		}
 	}
 	
 	public Set intersection(Set s) {
