@@ -85,16 +85,20 @@ public class Set {
 			set = (set & ~mask);
 		}
 	}
-	}
 	
 	public Set intersection(Set s) {
 
 		return null;
 	}
 	
+	/**
+	 * Returns the union of a set  
+	 * @param s The set to combine with
+	 * @return A union of the two sets
+	 */
 	public Set union(Set s) {
-
-		return null;
+		s = (s | set);
+		return s;
 	}
 	
 	public List<Integer> toList() {
