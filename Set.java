@@ -16,10 +16,18 @@ public class Set {
 	public static final int MAX_SET_ELEMENT_VALUE = 63;
 	private long set;
 	
+	/**
+	 * Initializes an empty set
+	 */
 	public Set() {
 		set = 0;
 	}
 	
+	/**
+	 * Initializes an empty set and fills with specified elements
+	 * @param elements A list of elements to be added to the set
+	 * @throws SetElementValueOutOfRange
+	 */
 	public Set(List<Integer> elements) throws SetElementValueOutOfRange{
 		set = 0;
 		for(int i = 0; i < elements.size(); i++) {
@@ -27,6 +35,11 @@ public class Set {
 		}
 	}
 	
+	/**
+	 * Checks if a specific element is in the set
+	 * @param x element to be checked
+	 * @return if the element is in the set
+	 */
 	public boolean isInSet(int x) {
 		long mask = 1;
 		mask << x;
@@ -35,8 +48,11 @@ public class Set {
 		else
 			return false
 	}
-	
+	/**
+	 * Emptys a set by returning all bits to 0
+	 */
 	public void empty() {
+		set = 0;
 		
 	}
 	
@@ -55,6 +71,11 @@ public class Set {
 		}
 	}
 	
+	/**
+	 * Removes an element from the set.  
+	 * @param x The identifier of the element to remove.  Must be in the range of 0 to 63.
+	 * @throws SetElementValueOutOfRange
+	 */
 	public void removeElement(int x) throws SetElementValueOutOfRange {
 		long mask = 1;
 		if (x > MAX_SET_ELEMENT_VALUE)
@@ -81,13 +102,21 @@ public class Set {
 		return null;
 	}
 	
+	/**
+	 * Checks if a set is empty.
+	 * @return if the set is empty
+	 */
 	public boolean isEmpty() {
 		if(set = 0)
 			return true;
 		else
 			return false;
 	}
-
+	
+	/**
+	 * Checks how many elements are in a set
+	 * @return the number of elements in the set
+	 */
 	public int size() {
 		int size = 0;
 		String s = Long.toBinaryString(set);
@@ -101,7 +130,10 @@ public class Set {
 		
 		
 	}
-
+	
+	/**
+	 * Sets set to the complimentary set
+	 */
 	public void complement() {
 		set  = 	~set;
 	}
